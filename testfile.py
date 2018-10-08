@@ -1,25 +1,94 @@
-def standaardprijs(afstandKM):
-    treinrit = afstandKM * 0.80
+import os.path
 
-    if afstandKM > 50:
-        treinrit = 15 + (afstandKM - 50)*0.60
-    elif afstandKM < 0:
-        treinrit = 0.00
-
-    return treinrit
+kluisnummers = list(range(1, 13))
 
 
-def ritprijs(leeftijd, weekendrit, afstandKM):
-    prijs = standaardprijs(afstandKM)
+def bagagekluis():
+    print("1: Ik wil weten hoeveel kluizen er nog vrij zijn")
+    print("2: Ik wil een nieuwe kluis")
+    print("3: Ik wil even iets uit mijn kluis halen")
+    print("4: Ik geef mijn kluis terug")
 
-    if weekendrit and (leeftijd < 12 or leeftijd >= 65):
-        prijs = prijs / 100 * 65
-    elif weekendrit:
-        prijs = prijs / 100 * 60
-    elif leeftijd < 12 or leeftijd >= 65:
-        prijs = prijs / 100 * 70
-    return prijs
+    try:
+        optie = int(input("Kies een optie:"))
+
+    except ValueError:
+        optie = int(input("Kies een optie:"))
+
+    if optie == 1:
+        toon_aantal_kluizen_vrij()
+    elif optie == 2:
+        nieuwe_kluis()
+    elif optie == 3:
+        kluis_openen()
+    else:
+        print("Verkeerde optie!")
+        print("Kies opnieuw!")
+
+    raise SystemExit(0)
 
 
-print(ritprijs(11, True, 50))
-print(ritprijs(12, True, 50))
+def toon_aantal_kluizen_vrij():
+    if os.path.exists("Kluizen.txt"):
+        aantal_bezet = 0
+        read_file = open("Kluizen.txt", "r")
+
+    for i in read_file.readlines():
+        aantal_bezet += 1
+
+        print("Kluis", 13 - aantal_bezet, "is beschikbaar")
+        read_file.close()
+
+def nieuwe_kluis():
+    if os.path.exists("Kluizen.txt"):
+        aantal_bezet = 0
+        read_file = open("Kluizen.txt", "r")
+
+    for i in read_file.readlines():
+        aantal_bezet += 1
+        read_file.close()
+
+    if aantal_bezet < 12:
+        read_file = open("Kluizen.txt", "r")
+
+        for i in read_file:
+            kluisnummer = int(i[0])
+            if kluisnummer in kluisnummers:
+                kluisnummers.remove(kluisnummer)
+
+        read_file.close()
+
+        nieuw_wachtwoord = input("Stel een wachtwoord van minimaal 4 tekens in:")
+        if len(nieuw_wachtwoord) < 4:
+            nieuw_wachtwoord = input("Uw wachtwoord is te kort!")
+
+        file_append = open("Kluizen.txt", "a")
+        file_append.write(str(min(kluisnummers)), ";", str(nieuw_wachtwoord))
+        print("U kluisnummer is:", min(kluisnummers))
+        print("Code:", nieuw_wachtwoord)
+
+    else:
+        print("Er is geen kluis beschikbaar!")
+    file_append.close()
+
+
+def kluis_openen():
+    if os.path.exists("Kluizen.txt"):
+        kluis_nummer = int(input("Kluis:"))
+        kluis_code = input("Wachtwoord:")
+
+    if os.path.exists("kluizen.txt"):
+        read_text = open("kluizen.txt")
+        read_line = read_text.readlines()
+
+        for i in read_line:
+
+            if str(kluis_nummer) in i:
+                if str(kluis_code) in i:
+                    print("Uw kluis is geopend!")
+                else:
+                    print("De ingevoerde gegevens kloppen niet!")
+
+
+bagagekluis()
+
