@@ -75,25 +75,26 @@ def nieuwe_kluis():
 
 
 def kluis_openen():
-    read_text = open("kluizen.txt", "r+")
-    read_line = read_text.readlines()
-    read_text.close()
+    if os.path.exists("Kluizen.txt"):
+        read_text = open("kluizen.txt", "r+")
+        read_line = read_text.readlines()
+        read_text.close()
 
-    kluis_nummers = input("Kluis:")
-    kluis_codes = input("Wachtwoord:")
+        kluis_nummers = input("Kluis:")
+        kluis_codes = input("Wachtwoord:")
 
-    x = False
-    for i in read_line:
-        read_split = i.split(";")
-        kluisnummer = read_split[0]
-        kluis_code = read_split[1].strip()
+        x = False
+        for i in read_line:
+            read_split = i.split(";")
+            kluisnummer = read_split[0]
+            kluis_code = read_split[1].strip()
 
-        if kluis_nummers == kluisnummer and kluis_codes == kluis_code:
-            x = True
-    if x:
-        print("Uw kluis is open!")
-    else:
-        print("De ingevoerde gegevens kloppen niet!")
+            if kluis_nummers == kluisnummer and kluis_codes == kluis_code:
+                x = True
+        if x:
+            print("Uw kluis is open!")
+        else:
+            print("De ingevoerde gegevens kloppen niet!")
 
 
 bagagekluis()
