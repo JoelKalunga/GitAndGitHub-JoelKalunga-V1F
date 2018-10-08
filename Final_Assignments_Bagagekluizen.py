@@ -33,11 +33,12 @@ def toon_aantal_kluizen_vrij():
         aantal_bezet = 0
         read_file = open("Kluizen.txt", "r")
 
-    for i in read_file.readlines():
+    for line in read_file.readlines():
         aantal_bezet += 1
 
-        print("Kluis", 13 - aantal_bezet, "is beschikbaar")
+        print("Kluis", 12 - aantal_bezet, "is beschikbaar.")
         read_file.close()
+
 
 def nieuwe_kluis():
     if os.path.exists("Kluizen.txt"):
@@ -63,7 +64,7 @@ def nieuwe_kluis():
             nieuw_wachtwoord = input("Uw wachtwoord is te kort!")
 
         file_append = open("Kluizen.txt", "a")
-        file_append.write(str(min(kluisnummers)), ";", str(nieuw_wachtwoord))
+        file_append.write(str(min(kluisnummers)) + ";" + str(nieuw_wachtwoord))
         print("U kluisnummer is:", min(kluisnummers))
         print("Code:", nieuw_wachtwoord)
 
