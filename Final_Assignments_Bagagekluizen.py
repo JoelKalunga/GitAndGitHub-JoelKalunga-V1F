@@ -31,26 +31,27 @@ def bagagekluis():
 def toon_aantal_kluizen_vrij():
     if os.path.exists("Kluizen.txt"):
         aantal_bezet = 0
-        read_file = open("Kluizen.txt", "r")
+        read_file = open("Kluizen.txt", "r+")
 
-    for line in read_file.readlines():
-        aantal_bezet += 1
+        for i in read_file.readlines():
+            aantal_bezet += 1
 
-        print("Kluis", 12 - aantal_bezet, "is beschikbaar.")
+        print("Er zijn", 12 - aantal_bezet, "kluizen beschikbaar.\n")
+
         read_file.close()
 
 
 def nieuwe_kluis():
     if os.path.exists("Kluizen.txt"):
         aantal_bezet = 0
-        read_file = open("Kluizen.txt", "r")
+        read_file = open("Kluizen.txt", "r+")
 
     for i in read_file.readlines():
         aantal_bezet += 1
         read_file.close()
 
     if aantal_bezet < 12:
-        read_file = open("Kluizen.txt", "r")
+        read_file = open("Kluizen.txt", "r+")
 
         for i in read_file:
             kluisnummer = int(i[0])
@@ -74,21 +75,25 @@ def nieuwe_kluis():
 
 
 def kluis_openen():
-    if os.path.exists("Kluizen.txt"):
-        kluis_nummer = int(input("Kluis:"))
-        kluis_code = input("Wachtwoord:")
+    read_text = open("kluizen.txt", "r+")
+    read_line = read_text.readlines()
+    read_text.close()
 
-    if os.path.exists("kluizen.txt"):
-        read_text = open("kluizen.txt")
-        read_line = read_text.readlines()
+    kluis_nummers = input("Kluis:")
+    kluis_codes = input("Wachtwoord:")
 
-        for i in read_line:
+    x = False
+    for i in read_line:
+        read_split = i.split(";")
+        kluisnummer = read_split[0]
+        kluis_code = read_split[1].strip()
 
-            if str(kluis_nummer) in i:
-                if str(kluis_code) in i:
-                    print("Uw kluis is geopend!")
-                else:
-                    print("De ingevoerde gegevens kloppen niet!")
+        if kluis_nummers == kluisnummer and kluis_codes == kluis_code:
+            x = True
+    if x:
+        print("Uw kluis is open!")
+    else:
+        print("De ingevoerde gegevens kloppen niet!")
 
 
 bagagekluis()
