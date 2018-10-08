@@ -23,3 +23,4 @@ def ritprijs(leeftijd, weekendrit, afstandKM):
 
 print(ritprijs(11, True, 50))
 print(ritprijs(12, True, 50))
+
