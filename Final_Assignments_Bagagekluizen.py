@@ -65,7 +65,7 @@ def nieuwe_kluis():
             nieuw_wachtwoord = input("Uw wachtwoord is te kort!")
 
         file_append = open("Kluizen.txt", "a")
-        file_append.write(str(min(kluisnummers)) + ";" + str(nieuw_wachtwoord))
+        file_append.write(str(min(kluisnummers)) + ";" + str(nieuw_wachtwoord) + "\n")
         print("U kluisnummer is:", min(kluisnummers))
         print("Code:", nieuw_wachtwoord)
 
