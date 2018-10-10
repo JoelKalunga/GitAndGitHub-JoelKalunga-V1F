@@ -66,7 +66,7 @@ def nieuwe_kluis():
 
         file_append = open("Kluizen.txt", "a")
         file_append.write(str(min(kluisnummers)) + ";" + str(nieuw_wachtwoord) + "\n")
-        print("U kluisnummer is:", min(kluisnummers))
+        print("Kluisnummer:", min(kluisnummers))
         print("Code:", nieuw_wachtwoord)
 
     else:
