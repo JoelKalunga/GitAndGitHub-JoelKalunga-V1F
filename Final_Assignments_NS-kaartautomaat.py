@@ -1,6 +1,6 @@
 stations = ["Schagen", "Heerhugowaard", "Alkmaar", "Castricum", "Zaandam", "Amsterdam Sloterdijk", "Amsterdam Centraal",
             "Amsterdam Amstel", "Utrecht Centraal", "’s-Hertogenbosch", "Eindhoven", "Weert", "Roermond", "Sittard",
-            "Maastricht."]
+            "Maastricht"]
 
 def inlezen_beginstation(stations):
 
@@ -8,6 +8,8 @@ def inlezen_beginstation(stations):
 
     while beginstation not in stations:
          beginstation = input("Deze trein komt niet in " + beginstation + "!\n" + "Wat is je beginstation?" + "\n")
+    while beginstation == "Maastricht":
+        beginstation = input("Maastricht is het eindstation!" + "\n" + "Wat is je beginstation?" + "\n")
     return beginstation
 
 
