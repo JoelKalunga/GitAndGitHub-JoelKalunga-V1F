@@ -15,10 +15,10 @@ def inlezen_eindstation(stations, beginstation):
 
     eindstation = input("Wat is je eindstation?" + "\n")
 
-    while stations.index(eindstation) == stations.index(beginstation):
-        eindstation = input(eindstation + " is je beginstation" + "!\n" + "Wat is je eindstation?" + "\n")
     while eindstation not in stations:
         eindstation = input("Deze trein komt niet in " + eindstation + "!\n" + "Wat is je eindstation?" + "\n")
+    while stations.index(eindstation) == stations.index(beginstation):
+        eindstation = input(eindstation + " is je beginstation" + "!\n" + "Wat is je eindstation?" + "\n")
     while stations.index(eindstation) < stations.index(beginstation):
         eindstation = input("Deze trein is al langs " + eindstation + " geweest!\n" + "Wat is je eindstation?" + "\n")
     return eindstation
