@@ -30,8 +30,8 @@ def omroepen_reis(stations, beginstation, eindstation):
     index_eindstation = stations.index(eindstation) + 1
     traject = index_eindstation - index_beginstation
 
-    print("\nHet beginstation", beginstation, "is het " + str(stations.index(beginstation) + 1) + "e station in het traject.")
-    print("Het eindstation", eindstation, "is het " + str(stations.index(eindstation) + 1) + "e station in het traject.")
+    print("\nHet beginstation" + beginstation + "is het " + str(stations.index(beginstation) + 1) + "e station in het traject.")
+    print("Het eindstation" + eindstation + "is het " + str(stations.index(eindstation) + 1) + "e station in het traject.")
     print("De afstand bedraagt", traject, "station(s).")
     print("De prijs van het kaartje is", traject*5, "euro.")
     print("\nJij stapt in de trein in: " + beginstation)
