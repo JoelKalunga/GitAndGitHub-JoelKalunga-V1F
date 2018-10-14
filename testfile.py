@@ -1,94 +1,47 @@
-import os.path
+stations = ["Schagen", "Heerhugowaard", "Alkmaar", "Castricum", "Zaandam", "Amsterdam Sloterdijk", "Amsterdam Centraal",
+            "Amsterdam Amstel", "Utrecht Centraal", "’s-Hertogenbosch", "Eindhoven", "Weert", "Roermond", "Sittard",
+            "Maastricht."]
 
-kluisnummers = list(range(1, 13))
+def inlezen_beginstation(stations):
 
+    beginstation = input("Wat is je beginstation?" + "\n")
 
-def bagagekluis():
-    print("1: Ik wil weten hoeveel kluizen er nog vrij zijn")
-    print("2: Ik wil een nieuwe kluis")
-    print("3: Ik wil even iets uit mijn kluis halen")
-    print("4: Ik geef mijn kluis terug")
-
-    try:
-        optie = int(input("Kies een optie:"))
-
-    except ValueError:
-        optie = int(input("Kies een optie:"))
-
-    if optie == 1:
-        toon_aantal_kluizen_vrij()
-    elif optie == 2:
-        nieuwe_kluis()
-    elif optie == 3:
-        kluis_openen()
-    else:
-        print("Verkeerde optie!")
-        print("Kies opnieuw!")
-
-    raise SystemExit(0)
+    while beginstation not in stations:
+         beginstation = input("Deze trein komt niet in " + beginstation + "!\n" + "Wat is je beginstation?" + "\n")
+    return beginstation
 
 
-def toon_aantal_kluizen_vrij():
-    if os.path.exists("Kluizen.txt"):
-        aantal_bezet = 0
-        read_file = open("Kluizen.txt", "r")
+def inlezen_eindstation(stations, beginstation):
 
-    for i in read_file.readlines():
-        aantal_bezet += 1
+    eindstation = input("Wat is je eindstation?" + "\n")
 
-        print("Kluis", 13 - aantal_bezet, "is beschikbaar")
-        read_file.close()
-
-def nieuwe_kluis():
-    if os.path.exists("Kluizen.txt"):
-        aantal_bezet = 0
-        read_file = open("Kluizen.txt", "r")
-
-    for i in read_file.readlines():
-        aantal_bezet += 1
-        read_file.close()
-
-    if aantal_bezet < 12:
-        read_file = open("Kluizen.txt", "r")
-
-        for i in read_file:
-            kluisnummer = int(i[0])
-            if kluisnummer in kluisnummers:
-                kluisnummers.remove(kluisnummer)
-
-        read_file.close()
-
-        nieuw_wachtwoord = input("Stel een wachtwoord van minimaal 4 tekens in:")
-        if len(nieuw_wachtwoord) < 4:
-            nieuw_wachtwoord = input("Uw wachtwoord is te kort!")
-
-        file_append = open("Kluizen.txt", "a")
-        file_append.write(str(min(kluisnummers)), ";", str(nieuw_wachtwoord))
-        print("U kluisnummer is:", min(kluisnummers))
-        print("Code:", nieuw_wachtwoord)
-
-    else:
-        print("Er is geen kluis beschikbaar!")
-    file_append.close()
+    while stations.index(eindstation) == stations.index(beginstation):
+        eindstation = input(eindstation + " is je beginstation" + "!\n" + "Wat is je eindstation?" + "\n")
+    while eindstation not in stations:
+        eindstation = input("Deze trein komt niet in " + eindstation + "!\n" + "Wat is je eindstation?" + "\n")
+    while stations.index(eindstation) < stations.index(beginstation):
+        eindstation = input("Deze trein is al langs " + eindstation + " geweest!\n" + "Wat is je eindstation?" + "\n")
+    return eindstation
 
 
-def kluis_openen():
-    if os.path.exists("Kluizen.txt"):
-        kluis_nummer = int(input("Kluis:"))
-        kluis_code = input("Wachtwoord:")
+def omroepen_reis(stations, beginstation, eindstation):
 
-    if os.path.exists("kluizen.txt"):
-        read_text = open("kluizen.txt")
-        read_line = read_text.readlines()
+    index_beginstation = stations.index(beginstation) + 1
+    index_eindstation = stations.index(eindstation) + 1
+    traject = index_eindstation - index_beginstation
 
-        for i in read_line:
+    print("\nHet beginstation", beginstation, "is het " + str(stations.index(beginstation) + 1) + "e station in het traject.")
+    print("Het eindstation", eindstation, "is het " + str(stations.index(eindstation) + 1) + "e station in het traject.")
+    print("De afstand bedraagt", traject, "station(s).")
+    print("De prijs van het kaartje is", traject*5, "euro.")
+    print("\nJij stapt in de trein in: " + beginstation)
 
-            if str(kluis_nummer) in i:
-                if str(kluis_code) in i:
-                    print("Uw kluis is geopend!")
-                else:
-                    print("De ingevoerde gegevens kloppen niet!")
+    for station in range(index_beginstation, index_eindstation - 1):
+        print("-", (stations[station]))
+    print("Jij stapt uit in: " + eindstation)
 
 
-bagagekluis()
+beginstation = inlezen_beginstation(stations)
+eindstation = inlezen_eindstation(stations, beginstation)
 
+omroepen_reis(stations, beginstation, eindstation)
