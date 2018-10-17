@@ -4,13 +4,18 @@ stations = ["Schagen", "Heerhugowaard", "Alkmaar", "Castricum", "Zaandam", "Amst
 
 
 def inlezen_beginstation(stations):
-    beginstation = input("Wat is je beginstation?" + "\n")
 
-    while beginstation not in stations:
-        beginstation = input("Deze trein komt niet in " + beginstation + "!\n" + "Wat is je beginstation?" + "\n")
-    while beginstation == "Maastricht":
-        beginstation = input("Maastricht is het eindstation!" + "\n" + "Wat is je beginstation?" + "\n")
-    return beginstation
+    while True:
+        eindbestemming = "Maastricht is je eindbestemming!"
+        beginstation = input("Wat is je beginstation? " + "\n")
+
+        if beginstation == "Maastricht":
+            print(eindbestemming)
+            continue
+        if beginstation in stations:
+            return beginstation
+        else:
+            print("Deze trein komt niet in " + beginstation + "!")
 
 
 def inlezen_eindstation(stations, beginstation):
@@ -30,7 +35,7 @@ def inlezen_eindstation(stations, beginstation):
 def omroepen_reis(stations, beginstation, eindstation):
     index_beginstation = stations.index(beginstation) + 1
     index_eindstation = stations.index(eindstation) + 1
-    traject = index_eindstation - index_beginstation
+    traject = index_eindstation - index_beginstation 
 
     print("\nHet beginstation" + beginstation + "is het " + str(
         stations.index(beginstation) + 1) + "e station in het traject.")
