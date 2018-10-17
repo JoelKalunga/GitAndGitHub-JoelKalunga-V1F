@@ -40,12 +40,11 @@ def omroepen_reis(stations, beginstation, eindstation):
     print("De prijs van het kaartje is", traject * 5, "euro.")
     print("\nJij stapt in de trein in: " + beginstation)
 
-    for station in range(index_beginstation, index_eindstation + 1):
+    for station in range(index_beginstation, index_eindstation):
         print("-", (stations[station]))
     print("Jij stapt uit in: " + eindstation)
 
 
 beginstation = inlezen_beginstation(stations)
 eindstation = inlezen_eindstation(stations, beginstation)
-
 omroepen_reis(stations, beginstation, eindstation)
